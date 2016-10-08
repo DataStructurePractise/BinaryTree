@@ -55,6 +55,19 @@ void deleteNode(struct BTNode **oneNode)
 	}
 }
 
+void preOrderBT(struct BTNode* oneNode)
+{
+	printf("%d ", oneNode->data);
+	if (oneNode->lchild != NULL)
+	{
+		preOrderBT(oneNode->lchild);
+	}
+	if (oneNode->rchild != NULL)
+	{
+		preOrderBT(oneNode->rchild);
+	}
+}
+
 void main()
 {
 	//建立一颗二叉树，从根节点开始
@@ -64,6 +77,9 @@ void main()
 	{
 		printf("create binary tree succ!");
 	}
+	//从根节点开始先序遍历
+	preOrderBT(rootNode);
+	printf("\n");
 
 	//析构
 	deleteNode(&rootNode);
