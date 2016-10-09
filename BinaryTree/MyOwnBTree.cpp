@@ -1,4 +1,4 @@
-//使用终端一次输入一个节点，采用先根节点，后左节点，再右节点的方式。
+//使用终端一次输入一个节点，先生成根节点，后左节点，再右节点的方式。
 //采用递归的方式
 //c语言编写
 //chenjl:20161007
@@ -68,6 +68,61 @@ void preOrderBT(struct BTNode* oneNode)
 	}
 }
 
+void midOrderBT(struct BTNode * oneNode)
+{
+	if (oneNode->lchild != NULL)
+	{
+		midOrderBT(oneNode->lchild);
+	}
+	printf("%d ", oneNode->data);
+	if (oneNode->rchild != NULL)
+	{
+		midOrderBT(oneNode->rchild);
+	}
+}
+
+void postOrderBT(struct BTNode *oneNode)
+{
+	if (oneNode->lchild != NULL)
+	{
+		postOrderBT(oneNode->lchild);
+	}
+	if (oneNode->rchild != NULL)
+	{
+		postOrderBT(oneNode->rchild);
+	}
+	printf("%d ", oneNode->data);
+}
+
+int BTDeepth(struct BTNode * oneNode)
+{
+	int deepth = 0;
+	int ldeepth = 0;
+	int rdeepth = 0;
+	if (oneNode->lchild != NULL)
+	{
+		ldeepth = BTDeepth(oneNode->lchild) + 1;
+	}
+	if (oneNode->rchild != NULL)
+	{
+		rdeepth = BTDeepth(oneNode->rchild) + 1;
+	}
+	if (ldeepth >= rdeepth)
+	{
+		deepth = ldeepth;
+	}
+	else
+	{
+		deepth = rdeepth;
+	}
+	return deepth;
+}
+
+void displayBT(struct BTNode* oneNode)
+{
+	
+}
+
 void main()
 {
 	//建立一颗二叉树，从根节点开始
@@ -75,11 +130,24 @@ void main()
 	rootNode = createOneNode();
 	if (rootNode != NULL)
 	{
-		printf("create binary tree succ!");
+		printf("create binary tree succ!\n");
 	}
-	//从根节点开始先序遍历
+	displayBT(rootNode);
+	//传入根节点开始先序遍历
 	preOrderBT(rootNode);
 	printf("\n");
+
+	//传入根节点开始中序遍历
+	midOrderBT(rootNode);
+	printf("\n");
+
+	//传入根节点开始后续遍历
+	postOrderBT(rootNode);
+	printf("\n");
+
+	//计算树深度
+	int deepth = BTDeepth(rootNode);
+	printf("deepth = %d\n", deepth);
 
 	//析构
 	deleteNode(&rootNode);
